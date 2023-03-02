@@ -12,3 +12,16 @@ var results = new TestResult(
     Device: config.LoggerId,
     Timestamp: DateTimeOffset.Now.ToUnixTimeMilliseconds(),
     Data: testData);
+
+using var client = new SpeedTestApiClient(config.ApiUrl);
+
+var success = await client.PublishTestResult(results);
+
+if (success)
+{
+    Console.WriteLine("Speedtest complete!");
+}
+else
+{
+    Console.WriteLine("Speedtest failed!");
+}
